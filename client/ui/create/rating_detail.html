@@ -1,0 +1,15 @@
+<template name="rp_create_rating_detail">
+    {{#if Template.subscriptionsReady}}
+        <div>
+            {{#each ratingDocument.data}}
+                {{>rp_rate_control class=class title=title size=size mutable=mutable value=value description=description}}
+                <br>
+            {{/each}}
+
+            <a href="#" id="rp_add_rating" class="btn btn-xs btn-primary">Rate</a>
+
+        </div>
+    {{else}}
+        <div>Loading...</div>
+    {{/if}}
+</template>

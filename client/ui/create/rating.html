@@ -1,0 +1,9 @@
+<template name="rp_create_rating">
+    {{#unless this.id}}
+        <a href="#" class="rp_add_feedback {{this.class}}" data-toggle="modal" data-target="#rp_rating_modal">give feedback</a>
+    {{else}}
+        {{#if isEditable}}
+            <a href="#" class="rp_edit_feedback {{this.class}}" data-toggle="modal" data-target="#rp_rating_modal">edit feedback</a>
+        {{/if}}
+    {{/unless}}
+</template>
