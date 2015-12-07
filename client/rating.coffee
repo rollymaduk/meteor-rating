@@ -4,21 +4,22 @@ class Rp_Rating_Client
   _config={}
   _currentRatingResults={}
 
-
-
   initTemplate:(templateDefaults)->
-    check(templateDefaults,Match.ObjectIncluding({name:String,collection:String,docId:String}))
+    check(templateDefaults,Match.ObjectIncluding({name:String,collection:String}))
     _currentRatingResults[templateDefaults.name]=templateDefaults
 
   getDefaultData:(name,data)->
     if data
-      check(data,Match.ObjectIncluding({docId:String,collection:String,data:[{title:String,description:String,value:Number}]}))
+      check(data,Match.ObjectIncluding({data:[Match.ObjectIncluding({title:String,description:String,value:Number})]}))
       _currentRatingResults[name]=data
     else
       _currentRatingResults[name]=_.extend(_config[name],_currentRatingResults[name])
     _currentRatingResults[name]
 
   modalHandle:undefined
+
+
+  identityFields:['emails.0.address']
 
   setConfig:(configs)->
     check(configs,[{name:String,data:[{title:String,description:String,value:Number}]}])
@@ -31,6 +32,8 @@ class Rp_Rating_Client
   saveRatingResults:(name,callback)->
     _.each _currentRatingResults[name].data,(val)->
       val.value=$("##{val.title}").data('userrating') or val.value
+    comment=$('.rp_rating_comment').val()
+    _currentRatingResults[name]["comment"]=comment
     Meteor.call 'saveRatingResults',_currentRatingResults[name],(err,res)->
       callback.call null,err,res
 

@@ -16,6 +16,7 @@ Package.onUse(function(api) {
   api.use('reactive-var');
   api.use('templating','client');
   api.use('barbatus:stars-rating');
+  api.use('meteorhacks:aggregate');
   api.use('digilord:sugarjs');
   api.use('aldeed:simple-schema');
   api.addFiles(['client/ui/common/rate_control.html'
@@ -25,9 +26,12 @@ Package.onUse(function(api) {
           ,'client/ui/create/rating.coffee'
           ,'client/ui/create/rating_detail.coffee'
           ,'client/ui/create/rating_detail.html'
+      ,'client/ui/helper.coffee'
       ,'client/rating.coffee'
       ,'client/ui/view/rating.html'
+      ,'client/ui/view/rating-list.html'
       ,'client/ui/view/rating.coffee'
+      ,'client/ui/view/rating-list.coffee'
   ],'client');
   api.addFiles('server/rating.coffee','server');
   api.addFiles('common/model.coffee');

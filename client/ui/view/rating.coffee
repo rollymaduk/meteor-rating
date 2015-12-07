@@ -1,8 +1,8 @@
 Template.rp_view_rating.created=->
   @value=new ReactiveVar(0)
   unless _.isArray(@data.values)
-    check(@data.qry,Object)
-    Meteor.call 'getRatingResultsSummary',qry,(err,res)=>
+    check(@data.query,Object)
+    Meteor.call 'getRatingResultsSummary',@data.query,(err,res)=>
       unless err
         if res then @value.set(res[0].avg)
   else

@@ -1,0 +1,29 @@
+<template name="rp_rating_list">
+    {{#if ratingComments.length}}
+        <div class="social-feed-box">
+            <div class="social-footer">
+                {{#each rateComments}}
+                    {{>rp_rate_comment_item}}
+                {{/each}}
+            </div>
+        </div>
+    {{/if}}
+</template>
+<template name="rp_rate_comment_item">
+    <div class="social-comment">
+        <div class="media-body">
+            <a href="#">
+                {{rp_rating_identity owner=owner}}
+            </a>
+            {{comment}}
+            <br>
+
+            <small class="text-muted">{{tm_cal createdAt}}</small>
+        </div>
+    </div>
+</template>
+<template name="rp_rating_identity">
+    {{#with owner}}
+        {{rp_rating_identity this}}
+    {{/with}}
+</template>

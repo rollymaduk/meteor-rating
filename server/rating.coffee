@@ -1,26 +1,26 @@
 class Rp_Rating_Server
   constructor:()->
-
-
-    Meteor.publish('findRatingItem',(qry)->
+    Meteor.publish('rp_ratings',(qry,modifier={})->
       check(@userId,String)
-      qry=_.extend(qry,{createdBy:@userId})
-      Rp_Ratings.find(qry)
+      Rp_Ratings.find(qry,modifier)
     )
     _pipeline=(qry)->
       [{$match:qry}
-       {$unwind:data}
+       {$unwind:"$data"}
        {$project:{document:"$docId",description:'$data.description',title:"$data.title",value:"$data.value"}}
       ]
     Meteor.methods
       getRatingResultsByTitle:(qry)->
         check(qry,Object)
-        pipeline=_pipeline(qry).push({$group:{_id:"$title",avg:"$value",desc:"$first":"$description"}})
+        pipeline=_pipeline(qry)
+        pipeline.push({$group:{_id:"$title",title:{$first:"$title"},value:{$avg:"$value"},description:{$first:"$description"}}})
+        console.log pipeline
         Rp_Ratings.aggregate(pipeline)
 
       getRatingResultsSummary:(qry)->
         check(qry,Object)
-        pipeline=_pipeline(qry).push({$group:{_id:1,avg:"$value"}})
+        pipeline=_pipeline(qry)
+        pipeline.push({$group:{_id:1,avg:"$value"}})
         Rp_Ratings.aggregate(pipeline)
 
       getRatingItem:(qry,modifier)->
@@ -39,7 +39,7 @@ class Rp_Rating_Server
 
   ratingChanged:(rating)->
 
-  getRatings:(qry,modifier)->
+  getRatings:(qry={},modifier={})->
     Rp_Ratings.find(qry,modifier)
 
 Rp_Rating=new Rp_Rating_Server()

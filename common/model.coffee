@@ -14,6 +14,9 @@ Rp_Rating_Model.RatingData=new SimpleSchema
   docId:
     type:String
     optional:true
+  comment:
+    type:String
+    optional:true
   audience:
     type:[String]
     optional:true
@@ -21,6 +24,10 @@ Rp_Rating_Model.RatingData=new SimpleSchema
     type:String
     optional:true
 
-@Rp_Ratings=new Meteor.Collection('rp_ratings')
+@Rp_Ratings=new Meteor.Collection('rp_ratings',transform:(doc)->
+  doc.owner=Meteor.users.findOne(doc.createdBy)
+  doc.candidates=Meteor.users.find(_id:$in:doc.audience).fetch()
+  doc
+)
 Rp_Ratings.attachSchema(Rp_Rating_Model.RatingData)
 Rp_Ratings.attachBehaviour('timestampable')
