@@ -20,7 +20,17 @@ class Rp_Rating_Server
       getRatingResultsSummary:(qry)->
         check(qry,Object)
         pipeline=_pipeline(qry)
-        pipeline.push({$group:{_id:1,avg:"$value"}})
+        pipeline.push($group:{_id:null,avgValue:{$avg:"$value"}})
+        Rp_Ratings.aggregate(pipeline)
+
+
+
+      getRatingTotalVotes:(qry)->
+        check(qry,Object)
+        pipeline=[
+          {$match:qry}
+          {$group:{_id : null,totalCount: { $sum: 1 }}}
+        ]
         Rp_Ratings.aggregate(pipeline)
 
       getRatingItem:(qry,modifier)->

@@ -32,6 +32,8 @@ Package.onUse(function(api) {
       ,'client/ui/view/rating-list.html'
       ,'client/ui/view/rating.coffee'
       ,'client/ui/view/rating-list.coffee'
+      ,'client/ui/view/ratingCounts.html'
+      ,'client/ui/view/ratingCounts.coffee'
   ],'client');
   api.addFiles('server/rating.coffee','server');
   api.addFiles('common/model.coffee');
