@@ -33,7 +33,7 @@ class Rp_Rating_Server
         ]
         Rp_Ratings.aggregate(pipeline)
 
-      getRatingItem:(qry,modifier)->
+      getRatingItem:(qry={},modifier={})->
         check(@userId,String)
         check(qry,Object)
         Rp_Ratings.findOne(qry,modifier)

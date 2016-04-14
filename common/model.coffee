@@ -24,7 +24,7 @@ Rp_Rating_Model.RatingData=new SimpleSchema
     type:String
     optional:true
 
-@Rp_Ratings=new Meteor.Collection('rp_ratings',transform:(doc)->
+@Rp_Ratings=new Meteor.Collection("#{Meteor.settings.public.dbPrefix}rp_ratings",transform:(doc)->
   doc.owner=Meteor.users.findOne(doc.createdBy)
   doc.candidates=Meteor.users.find(_id:$in:doc.audience).fetch()
   doc

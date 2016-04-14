@@ -1,5 +1,5 @@
 <template name="rp_view_rating">
     {{#if summaryData.value}}
-        {{>rp_rate_control summaryData }}
+       <a href="#" id="showRpRatingComment" data-toggle="modal" data-target="#rp_rating_modal"> <span class="fa fa-comment-o"></span> View Comment </a> {{>rp_rate_control summaryData }}
     {{/if}}
 </template>

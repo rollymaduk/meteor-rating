@@ -25,7 +25,7 @@ Meteor.startup ->
   Template.rp_rating_detail.events
     "click #rp_add_rating":(evt,temp)->
       Rp_Rating.saveRatingResults(temp.data.name,(err,res)->
-        $('#rp_rating_modal').modal(toggle)
+        $('#rp_rating_modal').modal('toggle')
       )
 
 

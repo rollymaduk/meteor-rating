@@ -9,6 +9,7 @@
         </div>
     {{/if}}
 </template>
+
 <template name="rp_rate_comment_item">
     <div class="social-comment">
         <div class="media-body">
@@ -22,8 +23,17 @@
         </div>
     </div>
 </template>
+
+
 <template name="rp_rating_identity">
     {{#with owner}}
         {{rp_rating_identity this}}
     {{/with}}
+</template>
+<!--for single comment rating in rating view-->
+<template name="rp_rating_comment">
+    <h3>Rating Comment</h3>
+    <div id="ratingComment" style="overflow-y: auto;">
+        {{comment}}
+    </div>
 </template>
